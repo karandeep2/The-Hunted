@@ -20,6 +20,8 @@ package {
 		public function gameController(m:multiplayerManager) 
 		{
 			this.manager = m;
+			
+			//Timer for missiles
 			var fireTimer:Timer = new Timer(500);
 			fireTimer.addEventListener(TimerEvent.TIMER, fireTimerListener);
 			fireTimer.start();
