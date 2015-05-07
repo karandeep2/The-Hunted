@@ -1,6 +1,6 @@
 ﻿package  {
 	
-	public class Entity 
+	public class Entity extends GameObject
 	{
 
 		/*
@@ -8,7 +8,7 @@
 			some level of basic artificial inteligence, all gameObjects have the update
 			function that can change the state of the object.
 		*/
-		public function Entity() extends GameObject
+		public function Entity() 
 		{
 			// constructor code
 		}

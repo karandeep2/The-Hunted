@@ -6,6 +6,7 @@
 		
 		private var p = null;
 		private var players : Array = new Array();
+		private var projectiles : Array = new Array();
 		private var thisPlayer : Player;
 		private var playerName : String;
 		private var playerSet : Boolean = false; //has the current player been set?
@@ -19,9 +20,10 @@
 		{
 			if(playerSet)
 			{
-				trace("updating player");
 				thisPlayer.update();
 			}
+			
+			updateProjectiles();
 		}
 		
 				
@@ -64,10 +66,12 @@
 						p.addChild(tmpPlayer);
 						if(tmpPlayer.getPlayerId() == playerName)
 						{
+							trace("adding this player");
 							thisPlayer = tmpPlayer;
 							thisPlayer.setCurrent();
 							playerSet = true;
 							found = true;
+							trace("added this player");
 						}
 					}
 						
@@ -127,9 +131,50 @@
 			}
 		}
 		
+		public function createProjectile(m : String)
+		{
+			trace(m);
+			
+			var split:Array = m.split(" ");
+			
+			if(split[0] == "!f")
+			{
+				//create a new missle
+				var tmpX:int = parseInt(split[1]);
+				var tmpY:int = parseInt(split[2]);
+				var tmpR:int = parseInt(split[3]);
+				
+				trace("x is: " + tmpX + "y is: " + tmpY + "rotation is: " + tmpR);
+				
+				var tmpMissile : Missile = new Missile(tmpX, tmpY, tmpR);
+				
+				projectiles.push(tmpMissile);
+				p.addChild(tmpMissile);
+				
+				//TODO check if the missile is from the player, if so give ignore value
+			}
+		}
+		
+		private function updateProjectiles() : void
+		{
+			//if a missile exists
+			if(projectiles.length > 0)
+			{
+				for(var i = 0; i < projectiles.length; i++)
+				{
+					projectiles[i].update();
+				}
+			}
+		}
+		
 		public function getPlayer() : Player
 		{
 			return thisPlayer;
+		}
+		
+		public function getName() : String
+		{
+			return playerName;
 		}
 		
 		public function getXBounds() : int

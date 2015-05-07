@@ -8,15 +8,21 @@ package {
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.events.EventDispatcher;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	public class gameController extends EventDispatcher{
 		 
 		private var manager:multiplayerManager;
 		private var keysArray:Array = [];
+		private var canFire:Boolean = true;
 		
 		public function gameController(m:multiplayerManager) 
 		{
 			this.manager = m;
+			var fireTimer:Timer = new Timer(500);
+			fireTimer.addEventListener(TimerEvent.TIMER, fireTimerListener);
+			fireTimer.start();
 		}
 
 		/*
@@ -48,8 +54,20 @@ package {
 			{
 				manager.move(4);
 			}
+			
+			if(keysArray[Keyboard.SPACE])
+			{
+				//ever half second
+				if(canFire == true)
+				{
+					canFire = false;
+					manager.fire();
+					keysArray[Keyboard.SPACE] = false;
+				}
+			}
 		}
 		
+
 		public function event(e:KeyboardEvent) : void
 		{
 			if(e.type == "keyDown")
@@ -60,6 +78,11 @@ package {
 			{
 				keysArray[e.keyCode] = false;
 			}
+		}
+		
+		function fireTimerListener (e:TimerEvent):void
+		{
+			canFire = true;
 		}
 	}
 }

@@ -29,7 +29,7 @@
 		{
 			userName = user;
 			roomName = room;
-			trace("attempting to connect")
+			trace("attempting to connect");
 			sfs.loadConfig("sfs-config.xml");
 		}
 		

@@ -28,6 +28,7 @@
 			cm.connect(userName, roomName);
 			m.setName(userName);
 			gc  = new gameController(this);
+			cm.broadcast("!addPlayer 0 0 " + m.getName());
 		}
 		
 		override public function update()
@@ -67,6 +68,11 @@
 			{
 				m.removePlayer(message);
 			}
+			
+			if(message.indexOf("!f") >=0)
+			{
+				m.createProjectile(message);
+			}
 		}
 		
 		/*
@@ -94,6 +100,7 @@
 			{
 				//tempY = tempY + speed;
 				//temp.y += speed;
+				temp.moveDir(-1);
 			}
 			else if(move == 3) //right
 			{
@@ -107,11 +114,26 @@
 				//tempY = tempY - speed;
 				//temp.y -= speed;
 				//temp.addYSpeed(-speed);
-				temp.moveDir();
+				temp.moveDir(1);
 			}
 			
 			//broadcast the players positon to the other players
 			//cm.broadcast("!updatePlayer " + tempX + " " + tempY + " " + userName);
+		}
+		
+		//message passed on from the controller to fire weapon
+		public function fire()
+		{
+			var temp : Player = m.getPlayer();
+			//get the players rotation (players rotation is equal to the missiles rotation)
+			var rot = temp.rotation;
+			//get the position (position is equal to the players original position)
+			var xPos = temp.x;
+			var yPos = temp.y;
+			
+			trace(rot);
+			
+			cm.broadcast("!f " + xPos + " " + yPos + " " + rot);
 		}
 
 		public function event(e : KeyboardEvent) : void

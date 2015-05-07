@@ -12,6 +12,7 @@
 		private var ySpeed : Number = 0;
 		private var xBounds : int = 0;
 		private var yBounds : int = 0;
+		private var rotationSpeed : Number = 0;
 		private var slowDownSpeed : Number = 0.01;
 		private var maxSpeed : int = 10;
 		private var p = null;
@@ -71,7 +72,11 @@
 		
 		public function rotate(rot : int)
 		{
-			rotation += rot;
+			//add to rotation speed limit top speed
+			
+			rotation+= (rot * 5);
+			
+				
 		}
 		
 		//Changed from getId to getPlayerId - to remove conflict in names.
@@ -125,10 +130,15 @@
 			{
 				ySpeed += slowDownSpeed;
 			}
+			
 		
+			
 			//then move the player
 			x += xSpeed;
 			y += ySpeed;
+			
+			//rotation ease off
+			
 			
 		}
 		
@@ -153,108 +163,16 @@
 			}
 		}
 		
-				
-		public function moveDir()
+		/*
+			Move in a direction using sin for xSpeed and cosine for y speed
+			multiplied by dir which will be either 1 or -1 for forwards or
+			backwards respectivly.
+		*/
+		public function moveDir(dir : int)
 		{
-			if(rotation >= 0 && rotation < 90)
-			{
-				//top - right
-				
-				if(rotation > 45)
-				{
-					var tempX = ((rotation / 90)/100); //a percentage of the rotation
-					var tempY = 1 - tempX; //if tempX = 0.6 temp T = 0.4
-					addXSpeed(tempX * 2);
-					addYSpeed(tempY * 2);
-				}
-				else if(rotation < 45)
-				{
-					var tempY = ((rotation / 90)/100); //a percentage of the rotation
-					var tempX = 1 - tempY;
-					addXSpeed(tempX * 2);
-					addYSpeed(tempY * 2);
-				}
-				else
-				{
-					addXSpeed(1);
-					addYSpeed(1);
-				}
-				
-			}
-			else if(rotation >= 90 && rotation < 180)
-			{
-				//right - bottom
-				var tempR = rotation - 90;
-				if(tempR > 45)
-				{
-					var tempX = ((tempR / 90)/100); //a percentage of the rotation
-					var tempY = 1 - tempX; //if tempX = 0.6 temp T = 0.4
-					addXSpeed(tempX * 2);
-					addYSpeed(-(tempY * 2));
-				}
-				else if(tempR < 45)
-				{
-					var tempY = ((tempR / 90)/100); //a percentage of the rotation
-					var tempX = 1 - tempY;
-					addXSpeed(tempX * 2);
-					addYSpeed(-(tempY * 2));
-				}
-				else
-				{
-					addXSpeed(1);
-					addYSpeed(1);
-				}
-				
-			}
-			else if(rotation >= 180 && rotation < 270)
-			{
-				//bottom - left
-				var tempR = tempR - 180;
-				if(tempR > 45)
-				{
-					var tempX = ((tempR / 90)/100); //a percentage of the rotation
-					var tempY = 1 - tempX; //if tempX = 0.6 temp T = 0.4
-					addXSpeed(-(tempX * 2));
-					addYSpeed(-(tempY * 2));
-				}
-				else if(tempR < 45)
-				{
-					var tempY = ((tempR / 90)/100); //a percentage of the rotation
-					var tempX = 1 - tempY;
-					addXSpeed(-(tempX * 2));
-					addYSpeed(-(tempY * 2));
-				}
-				else
-				{
-					addXSpeed(1);
-					addYSpeed(1);
-				}
-				
-			}
-			else
-			{
-				//left - top
-				var tempR = rotation - 270;
-				if(tempR > 45)
-				{
-					var tempX = ((tempR / 90)/100); //a percentage of the rotation
-					var tempY = 1 - tempX; //if tempX = 0.6 temp T = 0.4
-					addXSpeed(-(tempX * 2));
-					addYSpeed(tempY * 2);
-				}
-				else if(tempR < 45)
-				{
-					var tempY = ((tempR / 90)/100); //a percentage of the rotation
-					var tempX = 1 - tempY;
-					addXSpeed(-(tempX * 2));
-					addYSpeed(tempY * 2);
-				}
-				else
-				{
-					addXSpeed(1);
-					addYSpeed(1);
-				}
-			}
+			var angle :Number = rotation * Math.PI / 180;
+			xSpeed += dir * (Math.sin(angle));
+			ySpeed += dir * -((Math.cos(angle)));
 		}
 		
 		

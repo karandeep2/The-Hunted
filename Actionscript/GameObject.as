@@ -3,12 +3,12 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	public class GameObject 
+	public class GameObject extends MovieClip
 	{
 
 		private var p = null;
 		
-		public function GameObject() extends MovieClip
+		public function GameObject() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, addedHandler);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedHandler);
