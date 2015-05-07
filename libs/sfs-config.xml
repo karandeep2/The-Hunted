@@ -1,0 +1,22 @@
+<!--
+	:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	SFS2X Client Configuration file
+	(c) 2011 gotoAndPlay
+	:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+-->
+
+<SmartFoxConfig>
+
+	<!-- Mandatory Settings -->
+	<ip>127.0.0.1</ip>
+	<port>9933</port>
+	<zone>BasicExamples</zone>
+	<!-- End Mandatory Settings -->
+	
+	<debug>false</debug>
+	
+	<httpPort>8080</httpPort>
+	<useBlueBox>false</useBlueBox>
+	<blueBoxPollingRate>500</blueBoxPollingRate>
+	
+</SmartFoxConfig>
