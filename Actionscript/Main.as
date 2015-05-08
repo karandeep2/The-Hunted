@@ -23,10 +23,11 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 			
-			trace("shipNum main is: " + shipNum);
-			multiplayer = new multiplayerManager(shipNum, lasNum);
-			currentScreen = multiplayer;
+			trace("creating menu screen");
+			menu = new menuScreen();
+			currentScreen = menu;
 			addChild(currentScreen);
+			
 		}
 		
 		private function update(e : Event) : void
@@ -48,6 +49,14 @@
 			{
 				multiplayer.event(e);
 			}
+		}
+		
+		public function mm() : void
+		{
+			multiplayer = new multiplayerManager(shipNum, lasNum);
+			removeChild(currentScreen);
+			currentScreen = multiplayer;
+			addChild(currentScreen);
 		}
 	}
 	
