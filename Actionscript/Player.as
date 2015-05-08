@@ -171,10 +171,11 @@
 				x = 0;
 				p.x = 0 + 540;
 			}
-			else if(x > 4320)
+			//4320
+			else if(x > p.getXBounds())
 			{
-				x = 4320;
-				p.x = 4320;
+				x = p.getXBounds();
+				p.x = -p.getXBounds()+540;
 			}
 			
 			if(y < 0)
@@ -182,10 +183,11 @@
 				y = 0;
 				p.y = 0 + 360;
 			}
-			else if(y > 2880)
+			//2880 - 360
+			else if(y > p.getYBounds())
 			{
-				y = (2880);
-				p.y = (2880) - 360;
+				y = p.getYBounds();
+				p.y = -p.getYBounds() + 360;
 			}
 		}
 		
