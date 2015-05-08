@@ -60,7 +60,10 @@
 						var tmpX:int = parseInt(split[1]);
 						var tmpY:int = parseInt(split[2]);
 						var tmpPlayer:Player = new Player(split[3]);
+						var shipNum:int = parseInt(split[4]);
 						tmpPlayer.setPosition(tmpX,tmpY); //0 rotation
+						tmpPlayer.gotoAndStop(shipNum);
+						trace("ship num is " + shipNum);
 						players.push(tmpPlayer);
 						//players.push(new Player(split[3],tmpX,tmpY,0));
 						p.addChild(tmpPlayer);
@@ -145,10 +148,12 @@
 				var tmpY:int = parseInt(split[2]);
 				var tmpR:int = parseInt(split[3]);
 				var user:String = split[4];
+				var lasNum:int = parseInt(split[5]);
 				
 				trace("x is: " + tmpX + "y is: " + tmpY + "rotation is: " + tmpR);
 				
 				var tmpMissile : Missile = new Missile(tmpX, tmpY, tmpR, thisPlayer);
+				tmpMissile.gotoAndStop(lasNum);
 				
 				projectiles.push(tmpMissile);
 				p.addChild(tmpMissile);

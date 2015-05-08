@@ -13,6 +13,8 @@
 		private var settings:settingsScreen;
 		private var multiplayer:multiplayerManager;
 		private var singlePlayer:gameInstance;
+		private var shipNum : int = 2;
+		private var lasNum : int = 1;
 		
 		
 		public function Main() 
@@ -21,7 +23,8 @@
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 			
-			multiplayer = new multiplayerManager();
+			trace("shipNum main is: " + shipNum);
+			multiplayer = new multiplayerManager(shipNum, lasNum);
 			currentScreen = multiplayer;
 			addChild(currentScreen);
 		}

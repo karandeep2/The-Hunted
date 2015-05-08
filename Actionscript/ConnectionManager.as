@@ -79,7 +79,7 @@
 		
 		private function onRoomJoin(e:SFSEvent) : void
 		{
-			broadcast("!addPlayer 0 0 " + userName);
+			broadcast("!addPlayer 0 0 " + userName + " " + p.getShipNum());
 			trace("joined room: " + e.params.room.name);
 		}
 		

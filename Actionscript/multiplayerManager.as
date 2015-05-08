@@ -16,11 +16,21 @@
 		private var userName : String = "";
 		private var roomName : String = "room";
 		private var changed : Boolean = true;
+		private var shipNum : int = 0;
+		private var lasNum : int = 0;
 		
 		private var speed : int = 1;
 		
-		public function multiplayerManager() 
+		public function multiplayerManager(sn:int , ls:int) 
 		{
+
+			trace("sent variable is: " + sn);
+			
+			shipNum = sn;
+			lasNum = ls;
+			
+			trace("shipNum mm is: " + shipNum);
+			
 			/*create a random name to be used as the user name
 			this is the primary place where this needs to be changed
 			however a method will be made later in order to change
@@ -32,7 +42,7 @@
 			cm.connect(userName, roomName);
 			m.setName(userName);
 			gc  = new gameController(this);
-			cm.broadcast("!addPlayer 0 0 " + m.getName());
+			//cm.broadcast("!addPlayer 100 100 " + m.getName() + " " + shipNum);
 			
 			var updateTimer:Timer = new Timer(10);
 			updateTimer.addEventListener(TimerEvent.TIMER, updateTimerListener);
@@ -62,7 +72,7 @@
 				if(!m.addPlayer(message))//returns true if its its own message or the player was already found
 				{
 					//make this shorter or multiple lines
-					cm.broadcast("!addPlayer " + m.getPlayer().x.toString() + " " + m.getPlayer().y.toString() + " " + m.getPlayer().getPlayerId().toString()); //add this player to the new client
+					cm.broadcast("!addPlayer " + m.getPlayer().x.toString() + " " + m.getPlayer().y.toString() + " " + m.getPlayer().getPlayerId().toString() + " " + shipNum); //add this player to the new client
 				}
 				
 			}
@@ -146,7 +156,7 @@
 			
 			trace(rot);
 			
-			cm.broadcast("!f " + xPos + " " + yPos + " " + rot + " " + userName);
+			cm.broadcast("!f " + xPos + " " + yPos + " " + rot + " " + userName + " " + lasNum);
 		}
 		
 		//send position updates to the other players
@@ -193,6 +203,11 @@
 		public function destroy(miss : Missile)
 		{
 			cm.broadcast("!des " + userName); 
+		}
+		
+		public function getShipNum() : String
+		{
+			return shipNum.toString();
 		}
 	}
 	
