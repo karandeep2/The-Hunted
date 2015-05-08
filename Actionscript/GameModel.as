@@ -199,6 +199,15 @@
 			return p.stage.stageHeight;
 		}
 		
+		public function removeMissile(miss : Missile)
+		{
+			if(projectiles.indexOf(miss) != -1)
+			{
+				p.removeChild(miss);
+				projectiles.splice(projectiles.indexOf(miss),1);
+			}
+		}
+		
 		public function destroy(m : String)
 		{
 			var split:Array = m.split(" ");

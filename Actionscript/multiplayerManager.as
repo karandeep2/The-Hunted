@@ -209,6 +209,11 @@
 		{
 			return shipNum.toString();
 		}
+		
+		public function removeMissile( miss : Missile)
+		{
+			m.removeMissile(miss);
+		}
 	}
 	
 }

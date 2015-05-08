@@ -25,6 +25,7 @@
 			x += speed * Math.sin(angle);
 			y += speed * -Math.cos(angle);
 			
+			checkBounds();
 			checkCollisions();
 		}
 		
@@ -43,6 +44,14 @@
 				{
 					p.destroy(this);
 				}
+			}
+		}
+		
+		private function checkBounds()
+		{
+			if(x < 0 || x > p.getXBounds() || y < 0 || y > p.getYBounds()) 
+			{
+				p.removeMissile(this);
 			}
 		}
 		
