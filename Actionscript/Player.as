@@ -131,7 +131,7 @@
 				ySpeed += slowDownSpeed;
 			}
 			
-			if(xSpeed > 0 || ySpeed > 0)
+			if(xSpeed != 0 || ySpeed != 0)
 			{
 				p.setChanged(true);
 			}

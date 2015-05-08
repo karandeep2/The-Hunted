@@ -2,6 +2,9 @@
 	
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import flash.events.Event;
 	
 	
 	public class multiplayerManager extends Screen 
@@ -30,6 +33,10 @@
 			m.setName(userName);
 			gc  = new gameController(this);
 			cm.broadcast("!addPlayer 0 0 " + m.getName());
+			
+			var updateTimer:Timer = new Timer(10);
+			updateTimer.addEventListener(TimerEvent.TIMER, updateTimerListener);
+			updateTimer.start();
 		}
 		
 		override public function update()
@@ -42,12 +49,6 @@
 			var tempY = temp.y;
 			var rot = temp.rotation;
 			
-			//optomisation, dont need to update if not moved
-			if(changed == true)
-			{
-				cm.broadcast("!up " + tempX + " " + tempY + " " + rot + " " + userName);
-				changed = false;
-			}
 		}
 		
 		public function message(message : String) : void
@@ -146,6 +147,27 @@
 			trace(rot);
 			
 			cm.broadcast("!f " + xPos + " " + yPos + " " + rot + " " + userName);
+		}
+		
+		//send position updates to the other players
+		public function updateTimerListener(e:TimerEvent) : void
+		{
+				
+			var temp : Player = m.getPlayer();
+			//get the players rotation (players rotation is equal to the missiles rotation)
+			var rot = temp.rotation;
+			//get the position (position is equal to the players original position)
+			var tempX = temp.x;
+			var tempY = temp.y;
+			
+			
+			//optomisation, dont need to update if not moved
+			if(changed == true)
+			{
+				cm.broadcast("!up " + tempX + " " + tempY + " " + rot + " " + userName);
+				changed = false;
+			}
+	
 		}
 
 		public function event(e : KeyboardEvent) : void
