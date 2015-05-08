@@ -159,6 +159,11 @@
 			*/
 		}
 		
+		/*
+			Prevent the player from going out of bounds by moving the player
+			back to thier last position. As the background is moved in the opposite
+			direction the background also has to be placed in the correct location.
+		*/
 		private function bounds() : void
 		{
 			if(x < 0)
