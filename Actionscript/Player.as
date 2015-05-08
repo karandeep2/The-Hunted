@@ -131,7 +131,10 @@
 				ySpeed += slowDownSpeed;
 			}
 			
-		
+			if(xSpeed > 0 || ySpeed > 0)
+			{
+				p.setChanged(true);
+			}
 			
 			//then move the player
 			x += xSpeed;
@@ -182,8 +185,7 @@
 			xBounds = p.getXBounds();
 			yBounds = p.getYBounds();
 		}
-		
-
+	
 	}
 	
 }

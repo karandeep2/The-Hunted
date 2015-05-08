@@ -12,6 +12,7 @@
 		private var gc : gameController;
 		private var userName : String = "";
 		private var roomName : String = "room";
+		private var changed : Boolean = true;
 		
 		private var speed : int = 1;
 		
@@ -39,8 +40,14 @@
 			var temp : Player = m.getPlayer();
 			var tempX = temp.x;
 			var tempY = temp.y;
+			var rot = temp.rotation;
 			
-			cm.broadcast("!updatePlayer " + tempX + " " + tempY + " " + userName);
+			//optomisation, dont need to update if not moved
+			if(changed == true)
+			{
+				cm.broadcast("!up " + tempX + " " + tempY + " " + rot + " " + userName);
+				changed = false;
+			}
 		}
 		
 		public function message(message : String) : void
@@ -58,7 +65,7 @@
 				}
 				
 			}
-			else if(message.indexOf("!updatePlayer") >=0)
+			else if(message.indexOf("!up") >=0)
 			{
 				//trace("update");
 				m.updatePlayer(message);
@@ -72,6 +79,11 @@
 			if(message.indexOf("!f") >=0)
 			{
 				m.createProjectile(message);
+			}
+			
+			if(message.indexOf("!des") >=0)
+			{
+				m.destroy(message);
 			}
 		}
 		
@@ -133,7 +145,7 @@
 			
 			trace(rot);
 			
-			cm.broadcast("!f " + xPos + " " + yPos + " " + rot);
+			cm.broadcast("!f " + xPos + " " + yPos + " " + rot + " " + userName);
 		}
 
 		public function event(e : KeyboardEvent) : void
@@ -149,6 +161,16 @@
 		public function getYBounds() : int
 		{
 			return stage.stageHeight;
+		}
+		
+		public function setChanged(b : Boolean)
+		{
+			changed = b;
+		}
+		
+		public function destroy(miss : Missile)
+		{
+			cm.broadcast("!des " + userName); 
 		}
 	}
 	

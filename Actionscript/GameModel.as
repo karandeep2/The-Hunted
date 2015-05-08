@@ -115,16 +115,17 @@
 			var split:Array = m.split(" ");
 			if(split.length > 0)
 			{
-				if(split[0] == "!updatePlayer")
+				if(split[0] == "!up")
 				{
 					//Loop through the player the model knows about
 					for(var i:int = 0; i < players.length; i++)
 					{
 						//If the player currently selected is the same as the player
 						//being updated. Send new values
-						if(players[i].getPlayerId() == split[3] && split[3] != playerName)
+						if(players[i].getPlayerId() == split[4] && split[4] != playerName)
 						{
 							players[i].setPosition(int(split[1]), int(split[2]));
+							players[i].rotation = parseInt(split[3]);
 						}
 					}
 				}
@@ -143,13 +144,19 @@
 				var tmpX:int = parseInt(split[1]);
 				var tmpY:int = parseInt(split[2]);
 				var tmpR:int = parseInt(split[3]);
+				var user:String = split[4];
 				
 				trace("x is: " + tmpX + "y is: " + tmpY + "rotation is: " + tmpR);
 				
-				var tmpMissile : Missile = new Missile(tmpX, tmpY, tmpR);
+				var tmpMissile : Missile = new Missile(tmpX, tmpY, tmpR, thisPlayer);
 				
 				projectiles.push(tmpMissile);
 				p.addChild(tmpMissile);
+				
+				if(user == playerName)
+				{
+					tmpMissile.setImmune();
+				}
 				
 				//TODO check if the missile is from the player, if so give ignore value
 			}
@@ -186,7 +193,30 @@
 		{
 			return p.stage.stageHeight;
 		}
+		
+		public function destroy(m : String)
+		{
+			var split:Array = m.split(" ");
+			
+			var us = split[1];
+			
+			if(us == playerName)
+			{
+				p.removeChild(thisPlayer);
+			}
+			else
+			{
+				for(var i:int = 0; i < players.length; i++)
+				{
+					if(players[i].getPlayerId() == us)
+					{
+						p.removeChild(players[i]);
+					}
+				}
+			}
 
+		}
+		
 	}
 	
 }
