@@ -41,21 +41,7 @@
 			//this.rotation = rot;
 		}
 		
-		//add x or y speed to the player
-		public function addXSpeed( xs : Number)
-		{
-			xSpeed = xSpeed + xs;
-			
-			//limit the maxmimum speed
-			if(xSpeed > maxSpeed)
-			{
-				xSpeed = maxSpeed;
-			}
-			else if(xSpeed < -maxSpeed)
-			{
-				xSpeed = -maxSpeed;
-			}
-		}
+
 		
 		public function addYSpeed( ys : Number)
 		{
@@ -136,6 +122,10 @@
 				p.setChanged(true);
 			}
 			
+			//move the movie clip
+			p.x -= xSpeed;
+			p.y -= ySpeed;
+			
 			//then move the player
 			x += xSpeed;
 			y += ySpeed;
@@ -147,6 +137,7 @@
 		
 		private function wrapAround()
 		{
+			/*
 			if(x > xBounds)
 			{
 				x = 0;
@@ -164,6 +155,7 @@
 			{
 				y = yBounds;
 			}
+			*/
 		}
 		
 		/*
@@ -176,6 +168,8 @@
 			var angle :Number = rotation * Math.PI / 180;
 			xSpeed += dir * (Math.sin(angle));
 			ySpeed += dir * -((Math.cos(angle)));
+			
+			//todo need to limit the max speed of x and y speed using the maxSpeed variable
 		}
 		
 		
