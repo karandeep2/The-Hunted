@@ -84,8 +84,9 @@
 		//only called for the current player
 		public function update() : void
 		{
+			bounds();
 			move();
-			wrapAround(); //temporary code to wrap the player around
+			//wrapAround(); //temporary code to wrap the player around
 		}
 		
 		//sets the player to be this clients player
@@ -158,6 +159,32 @@
 			*/
 		}
 		
+		private function bounds() : void
+		{
+			if(x < 0)
+			{
+				x = 0;
+				p.x = 0 + 540;
+			}
+			else if(x > 4320)
+			{
+				x = 4320;
+				p.x = 4320;
+			}
+			
+			if(y < 0)
+			{
+				y = 0;
+				p.y = 0 + 360;
+			}
+			else if(y > 2880)
+			{
+				y = (2880);
+				p.y = (2880) - 360;
+			}
+		}
+		
+		
 		/*
 			Move in a direction using sin for xSpeed and cosine for y speed
 			multiplied by dir which will be either 1 or -1 for forwards or
@@ -170,6 +197,24 @@
 			ySpeed += dir * -((Math.cos(angle)));
 			
 			//todo need to limit the max speed of x and y speed using the maxSpeed variable
+			
+			if(xSpeed > maxSpeed)
+			{
+				xSpeed = maxSpeed;
+			}
+			else if(xSpeed < -maxSpeed)
+			{
+				xSpeed = -maxSpeed;
+			}
+			
+			if(ySpeed > maxSpeed)
+			{
+				ySpeed = maxSpeed;
+			}
+			else if(ySpeed < -maxSpeed)
+			{
+				ySpeed = -maxSpeed;
+			}
 		}
 		
 		

@@ -36,7 +36,7 @@
 			however a method will be made later in order to change
 			this based upon the users choice in the log in screen
 			*/
-			userName = Math.random().toString();
+			userName = Math.ceil((Math.random() * 100)).toString();
 			m = new GameModel(this);
 			cm = new ConnectionManager(this);
 			cm.connect(userName, roomName);
@@ -187,12 +187,12 @@
 		
 		public function getXBounds() : int
 		{
-			return stage.stageWidth;
+			return stage.stageWidth * 4;
 		}
 		
 		public function getYBounds() : int
 		{
-			return stage.stageHeight;
+			return stage.stageHeight * 4;
 		}
 		
 		public function setChanged(b : Boolean)
