@@ -4,7 +4,7 @@
 	public class Missile extends Entity 
 	{
 
-		private var speed = 3;
+		private var speed = 10;
 		private var immune = false;
 		private var player : Player = null;
 		private var p = null;
